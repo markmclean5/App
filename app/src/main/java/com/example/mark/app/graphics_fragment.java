@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 public class graphics_fragment extends Fragment {
 
 
+    MyGLRenderer renderer;
     public graphics_fragment()
     {
         super();
@@ -25,7 +26,7 @@ public class graphics_fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         GLSurfaceView glSurfaceView = new GLSurfaceView(getActivity());
-        MyGLRenderer renderer = new MyGLRenderer();
+        renderer = new MyGLRenderer();
         glSurfaceView.setEGLContextClientVersion(2);
         glSurfaceView.setRenderer(renderer);
 
@@ -33,4 +34,7 @@ public class graphics_fragment extends Fragment {
 
     }
 
+    public void setNeedleAngle(float angle) {
+        renderer.setAngle(angle);
+    }
 }

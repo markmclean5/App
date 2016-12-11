@@ -12,13 +12,38 @@
         android:layout_height="wrap_content"
         android:text="@string/hello_world" />
 
-    <LinearLayout
-        android:id="@+id/fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <Button
+        android:text="@string/reset_label"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/textView1"
+        android:id="@+id/button1" />
+
+    <SeekBar
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@+id/button1"
+        android:layout_toRightOf="@id/button1"
+        android:id="@+id/seekBar" />
+
+    <LinearLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/button1"
         android:layout_marginTop="19dp"
         android:orientation="vertical" >
     </LinearLayout>
+
+    <LinearLayout
+    android:id="@+id/fragment_container2"
+    android:layout_width="300dp"
+    android:layout_height="match_parent"
+    android:layout_alignTop="@id/fragment_container"
+    android:layout_toRightOf="@id/fragment_container"
+    android:orientation="vertical" >
+    </LinearLayout>
+
 </RelativeLayout>
