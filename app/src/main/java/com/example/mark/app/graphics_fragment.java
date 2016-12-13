@@ -25,6 +25,7 @@ public class graphics_fragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+
         GLSurfaceView glSurfaceView = new GLSurfaceView(getActivity());
         renderer = new MyGLRenderer();
         glSurfaceView.setEGLContextClientVersion(2);

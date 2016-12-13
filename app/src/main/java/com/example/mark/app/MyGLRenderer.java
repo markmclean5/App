@@ -59,6 +59,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         // Draw square
         mSquare.draw(mMVPMatrix);
 
+
         // Create a rotation for the triangle
 
         // Use the following code to generate constant rotation.
