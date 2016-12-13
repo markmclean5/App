@@ -15,7 +15,9 @@ public class Texample2Renderer implements GLSurfaceView.Renderer  {
 	private Context context;                           // Context (from Activity)
 
 	//private Triangle triangle;
-	private Circle circle;
+	//private Circle circle;
+	//private Square square;
+	Line line;
 
 	private int width = 100;                           // Updated to the Current Width + Height in onSurfaceChanged()
 	private int height = 100;
@@ -26,6 +28,8 @@ public class Texample2Renderer implements GLSurfaceView.Renderer  {
 	private final float[] mTriMVPMatrix = new float[16];
 	private final float[] mTriProjectionMatrix = new float[16];
 	private final float[] mTriViewMatrix = new float[16];
+
+	private float[] temp = new float[16];
 
 
 	public Texample2Renderer(Context context)  {
@@ -50,7 +54,9 @@ public class Texample2Renderer implements GLSurfaceView.Renderer  {
 
 
 		//triangle = new Triangle();
-		circle = new Circle();
+		//circle = new Circle();
+		//square = new Square();
+		line = new Line();
 	}
 
 	public void onDrawFrame(GL10 unused) {
@@ -66,7 +72,10 @@ public class Texample2Renderer implements GLSurfaceView.Renderer  {
 
         // Draw shape
         //triangle.draw(mVPMatrix);
-		circle.draw(mVPMatrix);
+		//circle.draw(mVPMatrix);
+		//square.draw(mVPMatrix);
+		line.draw(mVPMatrix);
+
 
 		// TEST: render the entire font texture
 		// glText.drawTexture( width/2, height/2, mVPMatrix);            // Draw the Entire Texture
