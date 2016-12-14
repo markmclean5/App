@@ -8,6 +8,8 @@ import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 
+import java.util.ArrayList;
+
 public class Texample2Renderer implements GLSurfaceView.Renderer  {
 
 	private static final String TAG = "TexampleRenderer";
@@ -16,8 +18,8 @@ public class Texample2Renderer implements GLSurfaceView.Renderer  {
 
 	//private Triangle triangle;
 	//private Circle circle;
-	//private Square square;
-	Line line;
+	private Square square;
+	ArrayList<Line> lines = new ArrayList<>();
 
 	private int width = 100;                           // Updated to the Current Width + Height in onSurfaceChanged()
 	private int height = 100;
@@ -25,9 +27,6 @@ public class Texample2Renderer implements GLSurfaceView.Renderer  {
 	private float[] mVMatrix = new float[16];
 	private float[] mVPMatrix = new float[16];
 
-	private final float[] mTriMVPMatrix = new float[16];
-	private final float[] mTriProjectionMatrix = new float[16];
-	private final float[] mTriViewMatrix = new float[16];
 
 	private float[] temp = new float[16];
 
@@ -46,7 +45,7 @@ public class Texample2Renderer implements GLSurfaceView.Renderer  {
 
 		// Load the font from file (set size + padding), creates the texture
 		// NOTE: after a successful call to this the font is ready for rendering!
-		glText.load( "Roboto-Regular.ttf", 100, 2, 2 );  // Create Font (Height: 14 Pixels / X+Y Padding 2 Pixels)
+		glText.load( "Roboto-Regular.ttf", 100, 2, 2 );  // Create Font (Height: 100 Pixels / X+Y Padding 2 Pixels)
 
 		// enable texture + alpha blending
 		GLES20.glEnable(GLES20.GL_BLEND);
@@ -55,8 +54,10 @@ public class Texample2Renderer implements GLSurfaceView.Renderer  {
 
 		//triangle = new Triangle();
 		//circle = new Circle();
-		//square = new Square();
-		line = new Line();
+		square = new Square();
+		Line tmp = new Line(0.0f, 10.0f, 100.0f, 45.0f);
+		lines.add(tmp);
+
 	}
 
 	public void onDrawFrame(GL10 unused) {
@@ -74,7 +75,10 @@ public class Texample2Renderer implements GLSurfaceView.Renderer  {
         //triangle.draw(mVPMatrix);
 		//circle.draw(mVPMatrix);
 		//square.draw(mVPMatrix);
-		line.draw(mVPMatrix);
+
+		for(int l = 0; l < lines.size(); ++l) {
+			lines.get(l).draw(mVPMatrix);
+		}
 
 
 		// TEST: render the entire font texture

@@ -16,11 +16,14 @@
 package com.example.mark.app;
 
 import android.opengl.GLES20;
+import android.opengl.Matrix;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.nio.ShortBuffer;
+
+import static java.lang.Math.cos;
 
 /**
  * A two-dimensional square for use as a drawn object in OpenGL ES 2.0.
@@ -53,11 +56,10 @@ public class Line {
     private int mColorHandle;
     private int mMVPMatrixHandle;
 
+
     // number of coordinates per vertex in this array
     static final int COORDS_PER_VERTEX = 3;
-    static float lineCoords[] = {
-            -100f,  100f, 0.0f,   // top left
-             100f,  100f, 0.0f }; // top right
+    static float lineCoords[] = new float[6];
 
     private final short drawOrder[] = { 0, 1}; // order to draw vertices
 
@@ -68,8 +70,19 @@ public class Line {
     /**
      * Sets up the drawing object data for use in an OpenGL ES context.
      */
-    public Line() {
-        // initialize vertex byte buffer for shape coordinates
+    public Line(float startX, float startY, float length, float angle) {
+        // Convert angle into beloved radians
+        float rAngle = (float)(angle*3.14159)/180;
+
+        // Assign line coordinates using trig
+        lineCoords[0] = startX;
+        lineCoords[1] = startY;
+        lineCoords[2] = 0.0f;
+        lineCoords[3] = startX + length * (float)Math.cos(rAngle);
+        lineCoords[4] = startY + length * (float)Math.sin(rAngle);
+        lineCoords[5] = 0.0f;
+
+        // initialize vertex byte buffer for line coordinates
         ByteBuffer bb = ByteBuffer.allocateDirect(
         // (# of coordinate values * 4 bytes per float)
                 lineCoords.length * 4);
@@ -108,6 +121,18 @@ public class Line {
      * this shape.
      */
     public void draw(float[] mvpMatrix) {
+
+
+        // TODO: Really good code to translate something - use somewhere else
+        /*
+        float[] scratch = new float[16];
+        float[] scratch2 = new float[16];
+        Matrix.setIdentityM(scratch2,0);
+        Matrix.translateM(scratch2, 0, 100f, 100f, 0f);
+        Matrix.multiplyMM(scratch, 0, mvpMatrix, 0, scratch2, 0);
+
+        */
+
         // Add program to OpenGL environment
         GLES20.glUseProgram(mProgram);
 
@@ -134,7 +159,7 @@ public class Line {
         MyGLRenderer.checkGlError("glGetUniformLocation");
 
         // Apply the projection and view transformation
-        GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mvpMatrix, 0);
+        GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mvpMatrix, 0);        // changed to scratch
         MyGLRenderer.checkGlError("glUniformMatrix4fv");
 
         // Draw the line
